@@ -1,23 +1,10 @@
 <?php
 
-$hostname = "localhost";
-$username = "root";
-$password = "resu";
-$database = "StudyPlan";
-$linkDB = mysqli_connect($hostname, $username, $password, $database);
-
-if (!$linkDB) {
-    http_response_code(500);
-    echo json_encode(['error' => "Ошибка подлкючения к базе данных " . mysqli_connect_error()], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-    exit;
-}
-mysqli_set_charset($linkDB,"utf8");
+require_once 'DatabaseConnection.php';
 
 if (isset($_GET["table"]) and $_GET["table"] != "") {
 
     $table = mysqli_real_escape_string($linkDB, $_GET["table"]);
-
-    $checkTableQuery = "SELECT COUNT(*) as count FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = $database AND TABLE_NAME = $table";
 
     if (isset($_GET["students_id"])) {
 
@@ -26,7 +13,7 @@ if (isset($_GET["table"]) and $_GET["table"] != "") {
             $students_id = intval(mysqli_real_escape_string($linkDB, $_GET["students_id"]));
 
             $checkStudents_idQuery = "SELECT COUNT(*) as count FROM $table WHERE students_id = $students_id";
-            checkingDataExistence($checkStudents_idQuery, $table);
+            checkingDataExistence($checkStudents_idQuery, $students_id);
 
             $query = "SELECT * FROM $table WHERE students_id = $students_id";
             $result = mysqli_query($linkDB, $query);
@@ -78,7 +65,7 @@ function checkingDataExistence($query, $name) {
     $countRowResultCheckQuery = mysqli_fetch_assoc($resultCheckQuery);
     if ($countRowResultCheckQuery["count"] == 0) {
         http_response_code(400);
-        echo json_encode(['error' => "Неправильное имя $name"], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        echo json_encode(['error' => "Неправильное значение переменной ($name)"], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         exit;
     }
 }
