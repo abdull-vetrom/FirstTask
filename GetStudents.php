@@ -1,8 +1,5 @@
 <?php
 
-//error_reporting(E_ALL);
-//ini_set('display_errors', 1);
-
 $hostname = "localhost";
 $username = "root";
 $password = "resu";
@@ -21,8 +18,6 @@ if (isset($_GET["table"]) and $_GET["table"] != "") {
     $table = mysqli_real_escape_string($linkDB, $_GET["table"]);
 
     $checkTableQuery = "SELECT COUNT(*) as count FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = $database AND TABLE_NAME = $table";
-//    checkingDataExistence($checkTableQuery, $table);
-
 
     if (isset($_GET["students_id"])) {
 
