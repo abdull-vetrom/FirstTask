@@ -1,37 +1,25 @@
 <?php
 try {
-
-    require_once 'DatabaseConnection.php';
+//error_reporting(E_ALL);
+//ini_set('display_errors', 1);
+    require_once '../DatabaseConnection.php';
 
     $input = file_get_contents('php://input');
     $requestArray = json_decode($input, true);
 
     if (!empty($requestArray)) {
 
-        $updateArray = [];
-
         foreach ($requestArray as $key => $value) {
-            if ($key == 'students_id') {
-                $studentsId = $value;
-                continue;
-            }
             $requestArray[$key] = mysqli_real_escape_string($linkDB, $value);
-            $updatingPair = $key . ' = ' . "\"$value\"";
-            $updateArray[] = $updatingPair;
         }
 
-        if (!$studentsId) {
-            http_response_code(400);
-            echo json_encode(['error' => 'Не один студент не выбран'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-            exit;
-        }
+        $columns = implode(', ', array_keys($requestArray));
+        $values = '"' . implode('", "', array_values($requestArray)) . '"';
 
-        $updateString = implode(', ', $updateArray);
-
-        $query = "UPDATE students SET $updateString WHERE students_id = $studentsId";
+        $query = "INSERT INTO students ($columns) VALUES ($values)";
 
         if (mysqli_query($linkDB, $query)) {
-            echo json_encode(['status' => 'success', 'message' => 'Данные о студенте обнавлены'], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+            echo json_encode(['status' => 'success', 'message' => 'Студент успешно добавлен'], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         } else {
             http_response_code(400);
             echo json_encode(['error' => 'Ошибка в передаваемых данных' . mysqli_error($linkDB)], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);

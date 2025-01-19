@@ -1,25 +1,20 @@
 <?php
+
 try {
-//error_reporting(E_ALL);
-//ini_set('display_errors', 1);
-    require_once 'DatabaseConnection.php';
+
+    require_once '../DatabaseConnection.php';
 
     $input = file_get_contents('php://input');
     $requestArray = json_decode($input, true);
 
     if (!empty($requestArray)) {
 
-        foreach ($requestArray as $key => $value) {
-            $requestArray[$key] = mysqli_real_escape_string($linkDB, $value);
-        }
+        $value = mysqli_real_escape_string($linkDB, $requestArray['students_id']);
 
-        $columns = implode(', ', array_keys($requestArray));
-        $values = '"' . implode('", "', array_values($requestArray)) . '"';
-
-        $query = "INSERT INTO students ($columns) VALUES ($values)";
+        $query = "DELETE FROM students WHERE students_id = $value";
 
         if (mysqli_query($linkDB, $query)) {
-            echo json_encode(['status' => 'success', 'message' => 'Студент успешно добавлен'], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+            echo json_encode(['status' => 'success', 'message' => 'Данные о студенте удалены'], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         } else {
             http_response_code(400);
             echo json_encode(['error' => 'Ошибка в передаваемых данных' . mysqli_error($linkDB)], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
@@ -34,3 +29,4 @@ try {
     var_dump($e -> getMessage());
     die;
 }
+
