@@ -58,21 +58,20 @@ try {
         http_response_code(400);
         echo json_encode(['error' => 'Параметр table не задан'], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
     }
-
-    function checkingDataExistence($query, $name) {
-        global $linkDB;
-        $resultCheckQuery = mysqli_query($linkDB, $query);
-        $countRowResultCheckQuery = mysqli_fetch_assoc($resultCheckQuery);
-        if ($countRowResultCheckQuery["count"] == 0) {
-            http_response_code(400);
-            echo json_encode(['error' => "Неправильное значение переменной ($name)"], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-            exit;
-        }
-    }
 } catch (Throwable $e) {
     var_dump($e -> getMessage());
     die;
 }
 
+function checkingDataExistence($query, $name) {
+    global $linkDB;
+    $resultCheckQuery = mysqli_query($linkDB, $query);
+    $countRowResultCheckQuery = mysqli_fetch_assoc($resultCheckQuery);
+    if ($countRowResultCheckQuery["count"] == 0) {
+        http_response_code(400);
+        echo json_encode(['error' => "Неправильное значение переменной ($name)"], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        exit;
+    }
+}
 
 
