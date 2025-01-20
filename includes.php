@@ -35,7 +35,7 @@ function creating ($tableName) {
                       VALUES ($values);";
 
             if (mysqli_query($linkDB, $query)) {
-                echo json_encode(['status' => 'success', 'message' => "Данные в таблице $tableName успешно обновлены"], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+                echo json_encode(['status' => 'success', 'message' => "Данные в таблицу $tableName успешно добавлены"], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
             } else {
                 http_response_code(400);
                 echo json_encode(['error' => 'Ошибка в передаваемых данных' . mysqli_error($linkDB)], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
