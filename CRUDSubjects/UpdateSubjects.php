@@ -1,5 +1,4 @@
 <?php
-
 require_once '../includes.php';
-$tableName = "students";
+$tableName = "subjects";
 updating($tableName);
