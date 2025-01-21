@@ -23,19 +23,13 @@ try {
                       FROM $table;";
         }
 
-        $result = mysqli_query($linkDB, $query);
+        $result = queryExecutionCheck($query, '', 'Ошибка выполнения запроса ' . mysqli_error($linkDB), 1);
 
-        if ($result) {
-
-            $data = [];
-            while ($row = mysqli_fetch_assoc($result)) {
-                $data[] = $row;
-            }
-            echo json_encode(['status' => 'True', 'data' => $data], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-
-        } else {
-            printErrorMessage(400, 'Ошибка выполнения запроса ' . mysqli_error($linkDB));
+        $data = [];
+        while ($row = mysqli_fetch_assoc($result)) {
+            $data[] = $row;
         }
+        echo json_encode(['status' => 'true', 'data' => $data], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 
     } else {
         printErrorMessage(400, "Параметр table не задан");

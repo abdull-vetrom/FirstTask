@@ -29,5 +29,5 @@ try {
     }
 } catch (Throwable $e) {
     var_dump($e -> getMessage());
-    printErrorMessage(400, "Серверная ошибка");
+    printErrorMessage(500, "Серверная ошибка");
 }

@@ -30,10 +30,16 @@ function checkingDataExistence($tableName, $variableName, $variableValue) {
     }
 }
 
-function queryExecutionCheck($query, $successMessage, $errorMessage) {
+function queryExecutionCheck($query, $successMessage, $errorMessage, $needResultFlag = 0) {
     global $linkDB;
-    if (mysqli_query($linkDB, $query)) {
-        echo json_encode(['status' => 'success', 'message' => $successMessage], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    if ($result = mysqli_query($linkDB, $query)) {
+
+        if ($needResultFlag) {
+            return $result;
+        } else {
+            echo json_encode(['status' => 'true', 'message' => $successMessage], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        }
+
     } else {
         printErrorMessage(400, $errorMessage);
     }
