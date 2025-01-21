@@ -20,7 +20,7 @@ try {
         $queryForSubjectId = "SELECT subjects_id
                               FROM subjects
                               WHERE subjects_name = '$subjectName';";
-        $subjectId = queryExecutionCheck($queryForSubjectId, '', 'Значение ($subjectName) параметра (subjects_name) в таблице subjects не найдено', 1);
+        $subjectId = queryExecutionCheck($queryForSubjectId, '', '', 1);
 
         if (!($subjectId = mysqli_fetch_assoc($subjectId)['subjects_id'])) {
             printErrorMessage(400, "Значение ($subjectName) параметра (subjects_name) в таблице subjects не найдено");
