@@ -21,10 +21,9 @@ try {
                               FROM subjects
                               WHERE subjects_name = '$subjectName';";
         $subjectId = queryExecutionCheck($queryForSubjectId, '', 'Значение ($subjectName) параметра (subjects_name) в таблице subjects не найдено', 1);
-        $subjectId = mysqli_fetch_assoc($subjectId)['subjects_id'];
 
         if (!($subjectId = mysqli_fetch_assoc($subjectId)['subjects_id'])) {
-
+            printErrorMessage(400, "Значение ($subjectName) параметра (subjects_name) в таблице subjects не найдено");
         }
 
         $query = "INSERT INTO $table (students_id, subjects_id)
