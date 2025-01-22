@@ -4,9 +4,9 @@ require_once '../includes.php';
 
 try {
 
-    if (!empty($_GET["table"])) {
+    if (!empty($_GET['table'])) {
 
-        $table = mysqli_real_escape_string($linkDB, $_GET["table"]);
+        $table = mysqli_real_escape_string($linkDB, $_GET['table']);
         $primaryKeyName = getPrimaryKeyName($table);
 
         if (!empty($_GET[$primaryKeyName])) {
@@ -16,11 +16,11 @@ try {
 
             $query = "SELECT *
                       FROM $table
-                      WHERE $primaryKeyName = $primaryKeyValue;";
+                      WHERE $primaryKeyName = $primaryKeyValue";
 
         } else {
             $query = "SELECT *
-                      FROM $table;";
+                      FROM $table";
         }
 
         $result = queryExecutionCheck($query, '', 'Ошибка выполнения запроса ' . mysqli_error($linkDB), 1);
@@ -32,9 +32,9 @@ try {
         echo json_encode(['status' => 'true', 'data' => $data], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 
     } else {
-        printErrorMessage(400, "Параметр table не задан");
+        printErrorMessage(400, 'Параметр table не задан');
     }
 } catch (Throwable $e) {
     var_dump($e -> getMessage());
-    printErrorMessage(500, "Серверная ошибка");
+    printErrorMessage(500, 'Серверная ошибка');
 }

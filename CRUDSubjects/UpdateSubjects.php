@@ -28,7 +28,7 @@ try {
 
         $query = "UPDATE $table
                   SET $updateString
-                  WHERE $primaryKeyName = $primaryKeyValue;";
+                  WHERE $primaryKeyName = $primaryKeyValue";
 
         queryExecutionCheck($query, 'Данные о предмете успешно обновлены', 'Ошибка выполнения запроса' . mysqli_error($linkDB));
 

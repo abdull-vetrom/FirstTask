@@ -15,7 +15,7 @@ try {
         checkingDataExistence($table, $primaryKeyName, $primaryKeyValue);
 
         $query = "DELETE FROM $table
-                  WHERE $primaryKeyName = $primaryKeyValue;";
+                  WHERE $primaryKeyName = $primaryKeyValue";
 
         queryExecutionCheck($query, 'Данные о предмете успешно удалены', 'Ошибка выполнения запроса' . mysqli_error($linkDB));
 

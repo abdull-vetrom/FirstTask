@@ -21,13 +21,13 @@ try {
                   VALUES ($values);";
 
         $successMessage = "Данные в таблицу $table успешно добавлены";
-        $errorMessage = "Ошибка в передаваемых данных" . mysqli_error($linkDB);
+        $errorMessage = 'Ошибка в передаваемых данных' . mysqli_error($linkDB);
         queryExecutionCheck($query, $successMessage, $errorMessage);
 
     } else {
-        printErrorMessage(400, "Данные не переданы");
+        printErrorMessage(400, 'Данные не переданы');
     }
 } catch (Throwable $e) {
     var_dump($e -> getMessage());
-    printErrorMessage(500, "Серверная ошибка");
+    printErrorMessage(500, 'Серверная ошибка');
 }

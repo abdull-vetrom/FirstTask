@@ -19,7 +19,7 @@ try {
 
         $queryForSubjectId = "SELECT subjects_id
                               FROM subjects
-                              WHERE subjects_name = '$subjectName';";
+                              WHERE subjects_name = '$subjectName'";
         $subjectId = queryExecutionCheck($queryForSubjectId, '', '', 1);
 
         if (!($subjectId = mysqli_fetch_assoc($subjectId)['subjects_id'])) {
@@ -27,16 +27,16 @@ try {
         }
 
         $query = "INSERT INTO $table (students_id, subjects_id)
-                  VALUES ($studentId, $subjectId);";
+                  VALUES ($studentId, $subjectId)";
 
         $successMessage = "Данные в таблицу $table успешно добавлены";
-        $errorMessage = "Ошибка в передаваемых данных" . mysqli_error($linkDB);
+        $errorMessage = 'Ошибка в передаваемых данных ' . mysqli_error($linkDB);
         queryExecutionCheck($query, $successMessage, $errorMessage);
 
     } else {
-        printErrorMessage(400, "Данные не переданы");
+        printErrorMessage(400, 'Данные не переданы');
     }
 } catch (Throwable $e) {
     var_dump($e -> getMessage());
-    printErrorMessage(500, "Серверная ошибка");
+    printErrorMessage(500, 'Серверная ошибка');
 }

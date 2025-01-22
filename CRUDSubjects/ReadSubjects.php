@@ -6,7 +6,7 @@ try {
 
     if (!empty($_GET["table"])) {
 
-        $table = mysqli_real_escape_string($linkDB, $_GET["table"]);
+        $table = mysqli_real_escape_string($linkDB, $_GET['table']);
         $primaryKeyName = getPrimaryKeyName($table);
 
         if (!empty($_GET[$primaryKeyName])) {
@@ -16,11 +16,11 @@ try {
 
             $query = "SELECT *
                       FROM $table
-                      WHERE $primaryKeyName = $primaryKeyValue;";
+                      WHERE $primaryKeyName = $primaryKeyValue";
 
         } else {
             $query = "SELECT *
-                      FROM $table;";
+                      FROM $table";
         }
 
         $result = mysqli_query($linkDB, $query);
@@ -38,9 +38,9 @@ try {
         }
 
     } else {
-        printErrorMessage(400, "Параметр table не задан");
+        printErrorMessage(400, 'Параметр table не задан');
     }
 } catch (Throwable $e) {
     var_dump($e -> getMessage());
-    printErrorMessage(500, "Серверная ошибка");
+    printErrorMessage(500, 'Серверная ошибка');
 }
