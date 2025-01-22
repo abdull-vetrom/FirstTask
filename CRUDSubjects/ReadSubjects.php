@@ -34,13 +34,12 @@ try {
             echo json_encode(['status' => 'True', 'data' => $data], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 
         } else {
-            printErrorMessage(400, 'Ошибка выполнения запроса ' . mysqli_error($linkDB));
+            printErrorMessage(400, 'Ошибка выполнения запроса');
         }
 
     } else {
-        printErrorMessage(400, 'Параметр table не задан');
+        printErrorMessage(400, 'Параметр не задан');
     }
 } catch (Throwable $e) {
-    var_dump($e -> getMessage());
     printErrorMessage(500, 'Серверная ошибка');
 }

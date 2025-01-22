@@ -27,7 +27,7 @@ try {
                             sub.subjects_id = edu.subjects_id";
         }
 
-        $result = queryExecutionCheck($query, '', 'Ошибка выполнения запроса ' . mysqli_error($linkDB), 1);
+        $result = queryExecutionCheck($query, '', 'Ошибка выполнения запроса', 1);
 
         $data = [];
         while ($row = mysqli_fetch_assoc($result)) {
@@ -36,7 +36,7 @@ try {
         echo json_encode(['status' => 'true', 'data' => $data], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 
     } else {
-        printErrorMessage(400, 'Параметр table не задан');
+        printErrorMessage(400, 'Необходимые параметры не заданы');
     }
 } catch (Throwable $e) {
     var_dump($e -> getMessage());

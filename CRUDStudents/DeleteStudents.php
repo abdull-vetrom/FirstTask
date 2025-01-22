@@ -17,13 +17,12 @@ try {
         $query = "DELETE FROM $table
                   WHERE $primaryKeyName = $primaryKeyValue;";
 
-        queryExecutionCheck($query, 'Данные о студенте успешно удалены', 'Ошибка выполнения запроса' . mysqli_error($linkDB));
+        queryExecutionCheck($query, 'Данные о студенте успешно удалены', 'Ошибка выполнения запроса');
 
     } else {
         printErrorMessage(400, 'Неверное количество параметров');
     }
 } catch (Throwable $e) {
-    var_dump($e -> getMessage());
     printErrorMessage(500, 'Серверная ошибка');
 }
 

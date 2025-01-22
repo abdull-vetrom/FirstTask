@@ -23,20 +23,19 @@ try {
         $subjectId = queryExecutionCheck($queryForSubjectId, '', '', 1);
 
         if (!($subjectId = mysqli_fetch_assoc($subjectId)['subjects_id'])) {
-            printErrorMessage(400, "Значение ($subjectName) параметра (subjects_name) в таблице subjects не найдено");
+            printErrorMessage(400, "Предмет ($subjectName) не найден");
         }
 
         $query = "INSERT INTO $table (students_id, subjects_id)
                   VALUES ($studentId, $subjectId)";
 
-        $successMessage = "Данные в таблицу $table успешно добавлены";
-        $errorMessage = 'Ошибка в передаваемых данных ' . mysqli_error($linkDB);
+        $successMessage = "Данные успешно добавлены";
+        $errorMessage = 'Ошибка в передаваемых данных';
         queryExecutionCheck($query, $successMessage, $errorMessage);
 
     } else {
         printErrorMessage(400, 'Данные не переданы');
     }
 } catch (Throwable $e) {
-    var_dump($e -> getMessage());
     printErrorMessage(500, 'Серверная ошибка');
 }

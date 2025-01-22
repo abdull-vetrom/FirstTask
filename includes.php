@@ -6,13 +6,11 @@ $hostname = 'localhost';
 $username = 'root';
 $password = 'resu';
 $database = 'StudyPlan';
-$linkDB = mysqli_connect($hostname, $username, $password, $database);
 
-if (!$linkDB) {
-    http_response_code(500);
-    echo json_encode(['error' => 'Ошибка подлкючения к базе данных ' . mysqli_connect_error()], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-    exit;
+if (!($linkDB = mysqli_connect($hostname, $username, $password, $database))) {
+    printErrorMessage(500, 'Серверная ошибка');
 }
+
 mysqli_set_charset($linkDB,'utf8');
 
 function checkingDataExistence($tableName, $variableName, $variableValue) {
@@ -26,7 +24,7 @@ function checkingDataExistence($tableName, $variableName, $variableValue) {
     $countRowResultCheckQuery = mysqli_fetch_assoc($resultCheckQuery);
 
     if ($countRowResultCheckQuery['count'] == 0) {
-        printErrorMessage(400, "Записи со значеним ($variableValue) переменной ($variableName) в таблице ($tableName) не существует");
+        printErrorMessage(400, 'Данной записи не существует');
     }
 }
 
@@ -63,7 +61,7 @@ function getPrimaryKeyName($tableName) {
         $row = mysqli_fetch_assoc($result);
         return $row['COLUMN_NAME'];
     } else {
-        printErrorMessage(400, 'Имя таблицы задано неверно');
+        printErrorMessage(400, 'Неверное значение параметров');
     }
 }
 

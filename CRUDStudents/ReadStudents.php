@@ -23,7 +23,7 @@ try {
                       FROM $table";
         }
 
-        $result = queryExecutionCheck($query, '', 'Ошибка выполнения запроса ' . mysqli_error($linkDB), 1);
+        $result = queryExecutionCheck($query, '', 'Ошибка выполнения запроса', 1);
 
         $data = [];
         while ($row = mysqli_fetch_assoc($result)) {
@@ -35,6 +35,5 @@ try {
         printErrorMessage(400, 'Параметр table не задан');
     }
 } catch (Throwable $e) {
-    var_dump($e -> getMessage());
     printErrorMessage(500, 'Серверная ошибка');
 }

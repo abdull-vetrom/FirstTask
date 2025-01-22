@@ -30,12 +30,11 @@ try {
                   SET $updateString
                   WHERE $primaryKeyName = $primaryKeyValue";
 
-        queryExecutionCheck($query, 'Данные о студенте успешно обновлены', 'Ошибка выполнения запроса' . mysqli_error($linkDB));
+        queryExecutionCheck($query, 'Данные о студенте успешно обновлены', 'Ошибка выполнения запроса');
 
     } else {
         printErrorMessage(400, 'Данные не заполнены');
     }
 } catch (Throwable $e) {
-    var_dump($e -> getMessage());
     printErrorMessage(500, 'Серверная ошибка');
 }
