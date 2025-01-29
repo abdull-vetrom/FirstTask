@@ -1,5 +1,5 @@
-SELECT stu.students_id, stu.students_name, stu.students_surname, stu.students_lastname,
-       stu.students_group, sub.subjects_id, sub.subjects_name
+SELECT stu.student_id, stu.student_name, stu.student_surname, stu.student_lastname,
+       stu.student_group, sub.subject_id, sub.subject_name
 FROM students stu, subjects sub, education edu
-WHERE stu.students_id = edu.students_id AND
-      sub.subjects_id = edu.subjects_id
+WHERE stu.student_id = edu.student_id AND
+      sub.subject_id = edu.subject_id

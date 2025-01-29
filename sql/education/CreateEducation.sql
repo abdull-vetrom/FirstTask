@@ -1,2 +1,2 @@
 INSERT INTO education
-VALUES (:studentId, :subjectId)
+VALUES (:student_id, :subject_id)

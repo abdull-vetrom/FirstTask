@@ -1,8 +1,8 @@
 INSERT INTO subjects
-VALUES (:subjects_name,
-        :subjects_score,
-        :subjects_lectures_time,
-        :subjects_seminar_time,
-        :subjects_laboratory_time,
-        :subjects_description,
-        :subjects_department)
+VALUES (:subject_name,
+        :subject_score,
+        :subject_lectures_time,
+        :subject_seminar_time,
+        :subject_laboratory_time,
+        :subject_description,
+        :subject_department)

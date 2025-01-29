@@ -1,2 +1,2 @@
-DELETE FROM $table
-WHERE :primaryKeyName = :primaryKeyValue
+DELETE FROM students
+WHERE student_id = :student_id

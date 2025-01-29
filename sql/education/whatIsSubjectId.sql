@@ -1,3 +1,3 @@
-SELECT subjects_id
+SELECT subject_id
 FROM subjects
-WHERE subjects_name = :subjectName
+WHERE subject_name = :subject_name

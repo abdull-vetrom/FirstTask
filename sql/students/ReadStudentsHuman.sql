@@ -1,3 +1,3 @@
 SELECT *
 FROM students
-WHERE :primaryKeyName = :primaryKeyValue
+WHERE student_id = :student_id

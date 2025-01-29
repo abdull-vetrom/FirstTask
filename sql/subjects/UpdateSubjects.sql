@@ -1,9 +1,9 @@
 UPDATE subjects
-SET subjects_name = :subjects_name,
-    subjects_score = :subjects_score,
-    subjects_lectures_time = :subjects_lectures_time,
-    subjects_seminar_time = :subjects_seminar_time,
-    subjects_laboratory_time = :subjects_laboratory_time,
-    subjects_description = :subjects_description,
-    subjects_department = :subjects_department
-WHERE subjects_id = :primaryKeyValue
+SET subject_name = :subject_name,
+    subject_score = :subject_score,
+    subject_lectures_time = :subject_lectures_time,
+    subject_seminar_time = :subject_seminar_time,
+    subject_laboratory_time = :subject_laboratory_time,
+    subject_description = :subject_description,
+    subject_department = :subject_department
+WHERE subject_id = :subject_id

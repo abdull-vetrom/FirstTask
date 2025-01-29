@@ -1,3 +1,3 @@
 SELECT *
 FROM subjects
-WHERE subjects_id = :primaryKeyValue
+WHERE subject_id = :subject_id
