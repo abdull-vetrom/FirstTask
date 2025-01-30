@@ -1,39 +1,41 @@
 <?php
 
-require_once '../includes.php';
+require_once dirname(__DIR__) . '/includes.php';
 
 try {
 
-    if (!empty($_GET['table'])) {
+    if (empty($_GET['table']) or $_GET['table'] !== 'students') {
+        $errorMessage = 'Необходимые параметры не заданы или заданы неверно';
+        printErrorMessage(400, $errorMessage);
+    }
 
-        $table = mysqli_real_escape_string($linkDB, $_GET['table']);
-        $primaryKeyName = getPrimaryKeyName($table);
+    $primaryKeyName = 'student_id';
 
-        if (!empty($_GET[$primaryKeyName])) {
+    if (!empty($_GET[$primaryKeyName])) {
 
-            $primaryKeyValue = intval(mysqli_real_escape_string($linkDB, $_GET[$primaryKeyName]));
-            checkingDataExistence($table, $primaryKeyName, $primaryKeyValue);
+        $primaryKeyValue = $_GET[$primaryKeyName];
+        $params = [$primaryKeyName => $primaryKeyValue];
+        $query = file_get_contents(dirname(__DIR__) . '/sql/students/countOfStudentsWithId.sql');
+        $errorMessage = 'Данный студент не найден';
 
-            $query = "SELECT *
-                      FROM $table
-                      WHERE $primaryKeyName = $primaryKeyValue";
+        checkingDataExistence($query, $params, $errorMessage);
 
-        } else {
-            $query = "SELECT *
-                      FROM $table";
-        }
-
-        $result = queryExecutionCheck($query, '', 'Ошибка выполнения запроса', 1);
-
-        $data = [];
-        while ($row = mysqli_fetch_assoc($result)) {
-            $data[] = $row;
-        }
-        echo json_encode(['status' => 'true', 'data' => $data], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        $query = file_get_contents(dirname(__DIR__) . '/sql/students/ReadStudentsHuman.sql');
 
     } else {
-        printErrorMessage(400, 'Параметр table не задан');
+        $query = file_get_contents(dirname(__DIR__) . '/sql/students/ReadStudentsAll.sql');
+        $params = [];
     }
+
+    $needResult = true;
+    $successMessage = '';
+    $errorMessage = 'Ошибка выполнения запроса';
+    $result = queryExecutionCheck($query, $successMessage, $errorMessage, $params, $needResult);
+
+    $data = $result->fetchAll(PDO::FETCH_ASSOC);
+    echo json_encode(['status' => 'true', 'data' => $data], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+
 } catch (Throwable $e) {
-    printErrorMessage(500, 'Серверная ошибка');
+    $errorMessage = 'Серверная ошибка';
+    printErrorMessage(500, $errorMessage);
 }

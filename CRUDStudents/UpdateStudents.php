@@ -1,40 +1,33 @@
 <?php
 
-require_once '../includes.php';
+require_once dirname(__DIR__) . '/includes.php';
 
 try {
 
     $input = file_get_contents('php://input');
     $requestArray = json_decode($input, true);
-    $table = 'students';
+    $primaryKeyName = 'students_id';
 
-    if (!empty($requestArray)) {
-
-        $updateArray = [];
-
-        foreach ($requestArray as $key => $value) {
-            if ($key === 'students_id') {
-                $primaryKeyName = $key;
-                $primaryKeyValue = mysqli_real_escape_string($linkDB, $value);
-                checkingDataExistence($table, $primaryKeyName, $primaryKeyValue);
-                continue;
-            }
-            $requestArray[$key] = mysqli_real_escape_string($linkDB, $value);
-            $updatingPair = $key . ' = ' . "\"$value\"";
-            $updateArray[] = $updatingPair;
-        }
-
-        $updateString = implode(', ', $updateArray);
-
-        $query = "UPDATE $table
-                  SET $updateString
-                  WHERE $primaryKeyName = $primaryKeyValue";
-
-        queryExecutionCheck($query, 'Данные о студенте успешно обновлены', 'Ошибка выполнения запроса');
-
-    } else {
-        printErrorMessage(400, 'Данные не заполнены');
+    if (empty($requestArray)) {
+        $errorMessage = 'Данные не заполнены';
+        printErrorMessage(400, $errorMessage);
     }
+
+    $primaryKeyValue = $requestArray[$primaryKeyName];
+
+    $query = file_get_contents(dirname(__DIR__) . '/sql/students/countOfStudentsWithId.sql');
+    $errorMessage = 'Данный студент не найден';
+    $params = [$primaryKeyName => $primaryKeyValue];
+
+    checkingDataExistence($query, $params, $errorMessage);
+
+    $query = file_get_contents(dirname(__DIR__) . '/sql/students/UpdateStudents.sql');
+    $successMessage = 'Данные о студенте успешно обновлены';
+    $errorMessage = 'Ошибка выполнения запроса';
+    queryExecutionCheck($query, $successMessage, $errorMessage, $requestArray);
+
+
 } catch (Throwable $e) {
-    printErrorMessage(500, 'Серверная ошибка');
+    $errorMessage = 'Серверная ошибка';
+    printErrorMessage(500, $errorMessage);
 }
