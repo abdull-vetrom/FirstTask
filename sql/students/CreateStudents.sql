@@ -1,5 +1,6 @@
 INSERT INTO students
-VALUES (:student_name,
+VALUES (:student_id,
+        :student_name,
         :student_lastname,
         :student_surname,
         :student_group,
