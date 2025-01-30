@@ -1,44 +1,42 @@
 <?php
 
-require_once '../includes.php';
+require_once dirname(__DIR__) . '/includes.php';
 
 try {
 
-    if (!empty($_GET['table'])) {
+    if (empty($_GET['table'])) {
+        $errorMessage = 'Необходимые параметры не заданы';
+        printErrorMessage(400, $errorMessage);
+    }
 
-        $table = mysqli_real_escape_string($linkDB, $_GET['table']);
-        $primaryKeyName = getPrimaryKeyName($table);
+    $primaryKeyName = 'student_id';
 
-        if (!empty($_GET[$primaryKeyName])) {
+    if (!empty($_GET[$primaryKeyName])) {
 
-            $primaryKeyValue = intval(mysqli_real_escape_string($linkDB, $_GET[$primaryKeyName]));
-            checkingDataExistence($table, $primaryKeyName, $primaryKeyValue);
+        $primaryKeyValue = $_GET[$primaryKeyName];
 
-            $query = "SELECT stu.students_id, stu.students_name, stu.students_surname, stu.students_lastname, stu.students_group, sub.subjects_id, sub.subjects_name
-                      FROM students stu, subjects sub, education edu
-                      WHERE stu.students_id = edu.students_id AND
-                            sub.subjects_id = edu.subjects_id AND
-                            edu.students_id = $primaryKeyValue";
+        $query = file_get_contents(dirname(__DIR__) . '/sql/education/studentsExisting.sql');
+        $params = [$primaryKeyName => $primaryKeyValue];
+        $errorMessage = 'Нет данных о списке предметов этого студента';
+        checkingDataExistence($query, $params, $errorMessage);
 
-        } else {
-            $query = "SELECT stu.students_id, stu.students_name, stu.students_surname, stu.students_lastname, stu.students_group, sub.subjects_id, sub.subjects_name
-                      FROM students stu, subjects sub, education edu
-                      WHERE stu.students_id = edu.students_id AND
-                            sub.subjects_id = edu.subjects_id";
-        }
-
-        $result = queryExecutionCheck($query, '', 'Ошибка выполнения запроса', 1);
-
-        $data = [];
-        while ($row = mysqli_fetch_assoc($result)) {
-            $data[] = $row;
-        }
-        echo json_encode(['status' => 'true', 'data' => $data], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        $query = file_get_contents(dirname(__DIR__) . '/sql/education/ReadEducationHuman.sql');
 
     } else {
-        printErrorMessage(400, 'Необходимые параметры не заданы');
+        $query = file_get_contents(dirname(__DIR__) . '/sql/education/ReadEducationAll.sql');
+        $params = [];
     }
+
+    $successMessage = '';
+    $errorMessage = 'Ошибка выполнения запроса';
+    $needResult = true;
+
+    $result = queryExecutionCheck($query, $successMessage, $errorMessage, $params, $needResult);
+
+    $data = $result->fetchAll(PDO::FETCH_ASSOC);
+    echo json_encode(['status' => 'true', 'data' => $data], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+
 } catch (Throwable $e) {
-    var_dump($e -> getMessage());
-    printErrorMessage(500, 'Серверная ошибка');
+    $errorMessage = 'Серверная ошибка';
+    printErrorMessage(500, $errorMessage);
 }
