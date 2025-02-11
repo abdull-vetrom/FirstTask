@@ -4,39 +4,38 @@
 use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\AttributeDriver;
-use Doctrine\ORM\ORMSetup;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 
-require_once "vendor/autoload.php";
+require_once 'vendor/autoload.php';
+require_once __DIR__ . '/dataForDB.php';
 
-function sendFailure($e): void
+function printErrorMessage($http_response_cod, $errorMessage): void
 {
-    echo json_encode(['success'=>false, 'rows'=>$e]);
-    die;
+    http_response_code($http_response_cod);
+    echo json_encode(['status' => 'false', 'error' => $errorMessage], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    exit;
 }
 
 function getEntityManager(): EntityManager
 {
 
-    $config = new Configuration;
+    $configuration = new Configuration;
 
+    //caching for fast work
     $queryCache = new ArrayAdapter();
     $metadataCache = new ArrayAdapter();
 
-    $config->setMetadataCache($metadataCache);
-    $config->setQueryCache($queryCache);
+    $configuration->setMetadataCache($metadataCache);
+    $configuration->setQueryCache($queryCache);
 
     //annotations driver
     $driver = new AttributeDriver( [__DIR__ . '/Entities']);
-    $config->setMetadataDriverImpl($driver);
+    $configuration->setMetadataDriverImpl($driver);
 
     //proxy config
-    $config->setProxyDir(__DIR__. '/var/cache');
-    $config->setProxyNamespace('Cache\Proxies');
-    $config->setAutoGenerateProxyClasses(false);
+    $configuration->setProxyDir(__DIR__. '/var/cache');
+    $configuration->setProxyNamespace('Cache\Proxies');
+    $configuration->setAutoGenerateProxyClasses(false);
 
-
-    require_once __DIR__ . '/dataForDB.php';
-
-    return EntityManager::create($connectionOptions, $config);
+    return EntityManager::create(getDataForDatabaseConnection(), $configuration);
 }
