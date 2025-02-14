@@ -21,18 +21,18 @@ class StudentsService {
         foreach ($students as $student) {
 
             $studentDTO = new StudentsDTO();
-            $studentDTO->student_id = $student->getStudentId();
-            $studentDTO->student_name = $student->getStudentName();
-            $studentDTO->student_lastname = $student->getStudentLastname();
-            $studentDTO->student_surname = $student->getStudentSurname();
-            $studentDTO->student_group = $student->getStudentGroup();
-            $studentDTO->student_birthday = $student->getStudentBirthday();
-            $studentDTO->student_gender = $student->getStudentGender();
-            $studentDTO->student_email = $student->getStudentEmail();
-            $studentDTO->student_phone = $student->getStudentPhone();
-            $studentDTO->student_address = $student->getStudentAddress();
-            $studentDTO->student_faculty = $student->getStudentFaculty();
-            $studentDTO->student_study_start_date = $student->getStudentStudyStartDate();
+            $studentDTO->studentId = $student->getStudentId();
+            $studentDTO->studentName = $student->getStudentName();
+            $studentDTO->studentLastname = $student->getStudentLastname();
+            $studentDTO->studentSurname = $student->getStudentSurname();
+            $studentDTO->studentGroup = $student->getStudentGroup();
+            $studentDTO->studentBirthday = $student->getStudentBirthday();
+            $studentDTO->studentGender = $student->getStudentGender();
+            $studentDTO->studentEmail = $student->getStudentEmail();
+            $studentDTO->studentPhone = $student->getStudentPhone();
+            $studentDTO->studentAddress = $student->getStudentAddress();
+            $studentDTO->studentFaculty = $student->getStudentFaculty();
+            $studentDTO->studentStudyStartDate = $student->getStudentStudyStartDate();
 
             $result[] = $studentDTO;
 
@@ -46,17 +46,17 @@ class StudentsService {
 
         try {
 
-            $student->setStudentName($studentsDTO->student_name);
-            $student->setStudentLastname($studentsDTO->student_lastname);
-            $student->setStudentSurname($studentsDTO->student_surname);
-            $student->setStudentGroup($studentsDTO->student_group);
-            $student->setStudentBirthday($studentsDTO->student_birthday);
-            $student->setStudentGender($studentsDTO->student_gender);
-            $student->setStudentEmail($studentsDTO->student_email);
-            $student->setStudentPhone($studentsDTO->student_phone);
-            $student->setStudentAddress($studentsDTO->student_address);
-            $student->setStudentFaculty($studentsDTO->student_faculty);
-            $student->setStudentStudyStartDate($studentsDTO->student_study_start_date);
+            $student->setStudentName($studentsDTO->studentName);
+            $student->setStudentLastname($studentsDTO->studentLastname);
+            $student->setStudentSurname($studentsDTO->studentSurname);
+            $student->setStudentGroup($studentsDTO->studentGroup);
+            $student->setStudentBirthday($studentsDTO->studentBirthday);
+            $student->setStudentGender($studentsDTO->studentGender);
+            $student->setStudentEmail($studentsDTO->studentEmail);
+            $student->setStudentPhone($studentsDTO->studentPhone);
+            $student->setStudentAddress($studentsDTO->studentAddress);
+            $student->setStudentFaculty($studentsDTO->studentFaculty);
+            $student->setStudentStudyStartDate($studentsDTO->studentStudyStartDate);
 
         } catch (Throwable) {
             printErrorMessage(400, 'Параметры заданы неверно');
@@ -82,8 +82,8 @@ class StudentsService {
 
     public function get(array $request): array {
 
-        $student_id = $request['id'];
-        $student_id ? $result = $this->getStudent($student_id) : $result = $this->getStudents();
+        $studentId = $request['id'];
+        $studentId ? $result = $this->getStudent($studentId) : $result = $this->getStudents();
         return $result;
 
     }
@@ -111,7 +111,7 @@ class StudentsService {
 
     public function update(StudentsDTO $studentsDTO, array $request): void {
 
-        //get student_id or error
+        //get studentId or error
         $variableArray = checkParameterExistence('id', $request);
         extract($variableArray);
 
@@ -130,7 +130,7 @@ class StudentsService {
 
     public function delete(array $request): void {
 
-        //get student_id or error
+        //get studentId or error
         $variableArray = checkParameterExistence('id', $request);
         extract($variableArray);
 

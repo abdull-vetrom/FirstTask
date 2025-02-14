@@ -14,156 +14,156 @@ use Doctrine\ORM\Mapping\Table;
 #[Table(name: 'students')]
 class StudentsEntity {
     #[Id]
-    #[Column(name: 'student_id', type: Types::INTEGER)]
+    #[Column(name: 'studentId', type: Types::INTEGER)]
     #[GeneratedValue]
-    private int $student_id;
+    private int $studentId;
 
-    #[Column(name: 'student_name', type: Types::STRING)]
-    private string $student_name;
+    #[Column(name: 'studentName', type: Types::STRING)]
+    private string $studentName;
 
-    #[Column(name: 'student_lastname', type: Types::STRING)]
-    private string $student_lastname;
+    #[Column(name: 'studentLastname', type: Types::STRING)]
+    private string $studentLastname;
 
-    #[Column(name: 'student_surname', type: Types::STRING, nullable: true)]
-    private string $student_surname;
+    #[Column(name: 'studentSurname', type: Types::STRING, nullable: true)]
+    private string $studentSurname;
 
-    #[Column(name: 'student_group', type: Types::STRING, nullable: true)]
-    private string $student_group;
+    #[Column(name: 'studentGroup', type: Types::STRING, nullable: true)]
+    private string $studentGroup;
 
-    #[Column(name: 'student_birthday', type: Types::STRING)]
-    private string $student_birthday;
+    #[Column(name: 'studentBirthday', type: Types::STRING)]
+    private string $studentBirthday;
 
-    #[Column(name: 'student_gender', type: Types::STRING)]
-    private string $student_gender;
+    #[Column(name: 'studentGender', type: Types::STRING)]
+    private string $studentGender;
 
-    #[Column(name: 'student_email', type: Types::STRING, unique: true, nullable: true)]
-    private string $student_email;
+    #[Column(name: 'studentEmail', type: Types::STRING, unique: true, nullable: true)]
+    private string $studentEmail;
 
-    #[Column(name: 'student_phone', type: Types::STRING, unique: true)]
-    private string $student_phone;
+    #[Column(name: 'studentPhone', type: Types::STRING, unique: true)]
+    private string $studentPhone;
 
-    #[Column(name: 'student_address', type: Types::STRING)]
-    private string $student_address;
+    #[Column(name: 'studentAddress', type: Types::STRING)]
+    private string $studentAddress;
 
-    #[Column(name: 'student_faculty', type: Types::STRING)]
-    private string $student_faculty;
+    #[Column(name: 'studentFaculty', type: Types::STRING)]
+    private string $studentFaculty;
 
-    #[Column(name: 'student_study_start_date', type: Types::STRING)]
-    private string $student_study_start_date;
+    #[Column(name: 'studentStudyStartDate', type: Types::STRING)]
+    private string $studentStudyStartDate;
 
     public function getStudentId(): int
     {
-        return $this->student_id;
+        return $this->studentId;
     }
 
     public function getStudentName(): string
     {
-        return $this->student_name;
+        return $this->studentName;
     }
 
-    public function setStudentName(string $student_name): void
+    public function setStudentName(string $studentName): void
     {
-        $this->student_name = $student_name;
+        $this->studentName = $studentName;
     }
 
     public function getStudentLastname(): string
     {
-        return $this->student_lastname;
+        return $this->studentLastname;
     }
 
-    public function setStudentLastname(string $student_lastname): void
+    public function setStudentLastname(string $studentLastname): void
     {
-        $this->student_lastname = $student_lastname;
+        $this->studentLastname = $studentLastname;
     }
 
     public function getStudentSurname(): string
     {
-        return $this->student_surname;
+        return $this->studentSurname;
     }
 
-    public function setStudentSurname(string $student_surname): void
+    public function setStudentSurname(string $studentSurname): void
     {
-        $this->student_surname = $student_surname;
+        $this->studentSurname = $studentSurname;
     }
 
     public function getStudentGroup(): string
     {
-        return $this->student_group;
+        return $this->studentGroup;
     }
 
-    public function setStudentGroup(string $student_group): void
+    public function setStudentGroup(string $studentGroup): void
     {
-        $this->student_group = $student_group;
+        $this->studentGroup = $studentGroup;
     }
 
     public function getStudentBirthday(): string
     {
-        return $this->student_birthday;
+        return $this->studentBirthday;
     }
 
-    public function setStudentBirthday(string $student_birthday): void
+    public function setStudentBirthday(string $studentBirthday): void
     {
-        $this->student_birthday = $student_birthday;
+        $this->studentBirthday = $studentBirthday;
     }
 
     public function getStudentGender(): string
     {
-        return $this->student_gender;
+        return $this->studentGender;
     }
 
-    public function setStudentGender(string $student_gender): void
+    public function setStudentGender(string $studentGender): void
     {
-        $this->student_gender = $student_gender;
+        $this->studentGender = $studentGender;
     }
 
     public function getStudentEmail(): string
     {
-        return $this->student_email;
+        return $this->studentEmail;
     }
 
-    public function setStudentEmail(string $student_email): void
+    public function setStudentEmail(string $studentEmail): void
     {
-        $this->student_email = $student_email;
+        $this->studentEmail = $studentEmail;
     }
 
     public function getStudentPhone(): string
     {
-        return $this->student_phone;
+        return $this->studentPhone;
     }
 
-    public function setStudentPhone(string $student_phone): void
+    public function setStudentPhone(string $studentPhone): void
     {
-        $this->student_phone = $student_phone;
+        $this->studentPhone = $studentPhone;
     }
 
     public function getStudentAddress(): string
     {
-        return $this->student_address;
+        return $this->studentAddress;
     }
 
-    public function setStudentAddress(string $student_address): void
+    public function setStudentAddress(string $studentAddress): void
     {
-        $this->student_address = $student_address;
+        $this->studentAddress = $studentAddress;
     }
 
     public function getStudentFaculty(): string
     {
-        return $this->student_faculty;
+        return $this->studentFaculty;
     }
 
-    public function setStudentFaculty(string $student_faculty): void
+    public function setStudentFaculty(string $studentFaculty): void
     {
-        $this->student_faculty = $student_faculty;
+        $this->studentFaculty = $studentFaculty;
     }
 
     public function getStudentStudyStartDate(): string
     {
-        return $this->student_study_start_date;
+        return $this->studentStudyStartDate;
     }
 
-    public function setStudentStudyStartDate(string $student_study_start_date): void
+    public function setStudentStudyStartDate(string $studentStudyStartDate): void
     {
-        $this->student_study_start_date = $student_study_start_date;
+        $this->studentStudyStartDate = $studentStudyStartDate;
     }
 
 }
