@@ -7,7 +7,6 @@ use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
-use app\enums\gender;
 use Doctrine\ORM\Mapping\Table;
 
 
@@ -34,7 +33,7 @@ class StudentsEntity {
     #[Column(name: 'student_birthday', type: Types::STRING)]
     private string $student_birthday;
 
-    #[Column(name: 'student_gender', type: Types::STRING, enumType: Gender::class)]
+    #[Column(name: 'student_gender', type: Types::STRING)]
     private string $student_gender;
 
     #[Column(name: 'student_email', type: Types::STRING, unique: true, nullable: true)]
