@@ -43,21 +43,34 @@ class StudentsController {
 
     public function get(array $request): array {
 
-        return $this->studentsService->get($request);
+        $studentId = $request['id'];
+
+        $studentId ? $result = $this->studentsService->getStudent($studentId)
+            : $result = $this->studentsService->getStudents();
+
+        return $result;
 
     }
 
     public function update(array $request): void {
 
+        //get studentId or error
+        $variableArray = checkParameterExistence('id', $request);
+        extract($variableArray);
+
         $studentsDTO = new StudentsDTO();
         $this->setDTOFromRequest($request, $studentsDTO);
-        $this->studentsService->update($studentsDTO, $request);
+        $this->studentsService->update($studentsDTO, $id);
 
     }
 
     public function delete(array $request): void {
 
-        $this->studentsService->delete($request);
+        //get studentId or error
+        $variableArray = checkParameterExistence('id', $request);
+        extract($variableArray);
+
+        $this->studentsService->delete($id);
 
     }
 

@@ -80,18 +80,11 @@ class StudentsService {
 
     }
 
-    public function get(array $request): array {
-
-        $studentId = $request['id'];
-        $studentId ? $result = $this->getStudent($studentId) : $result = $this->getStudents();
-        return $result;
-
-    }
-    private function getStudent(int $id): array {
+    public function getStudent(int $studentId): array {
 
         try {
-            $student = $this->entityManager->find(StudentsEntity::class, $id)
-                ? [$this->entityManager->find(StudentsEntity::class, $id)]
+            $student = $this->entityManager->find(StudentsEntity::class, $studentId)
+                ? [$this->entityManager->find(StudentsEntity::class, $studentId)]
                 : throw new Exception();
 
         } catch (Throwable) {
@@ -102,18 +95,14 @@ class StudentsService {
 
     }
 
-    private function getStudents(): array {
+    public function getStudents(): array {
 
         $students = $this->entityManager->getRepository(StudentsEntity::class)->findAll();
         return $this->getStudentsAttributes($students);
 
     }
 
-    public function update(StudentsDTO $studentsDTO, array $request): void {
-
-        //get studentId or error
-        $variableArray = checkParameterExistence('id', $request);
-        extract($variableArray);
+    public function update(StudentsDTO $studentsDTO, int $id): void {
 
         try {
 
@@ -128,11 +117,7 @@ class StudentsService {
 
     }
 
-    public function delete(array $request): void {
-
-        //get studentId or error
-        $variableArray = checkParameterExistence('id', $request);
-        extract($variableArray);
+    public function delete(int $id): void {
 
         try {
 
