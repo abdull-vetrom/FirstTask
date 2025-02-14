@@ -14,29 +14,29 @@ use Doctrine\ORM\Mapping\Table;
 #[Table(name: 'subjects')]
 class SubjectsEntity {
     #[Id]
-    #[Column(name: 'subjectId', type: Types::INTEGER)]
+    #[Column(name: 'subject_id', type: Types::INTEGER)]
     #[GeneratedValue]
     private int $subjectId;
 
-    #[Column(name: 'subjectName', type: Types::STRING)]
+    #[Column(name: 'subject_name', type: Types::STRING)]
     private string $subjectName;
 
-    #[Column(name: 'subjectScore', type: Types::INTEGER)]
-    private string $subjectScore;
+    #[Column(name: 'subject_score', type: Types::INTEGER)]
+    private int $subjectScore;
 
-    #[Column(name: 'subjectLecturesTime', type: Types::INTEGER, nullable: true)]
-    private string $subjectLecturesTime;
+    #[Column(name: 'subject_lectures_time', type: Types::INTEGER, nullable: true)]
+    private ?int $subjectLecturesTime = null;
 
-    #[Column(name: 'subjectSeminarTime', type: Types::INTEGER, nullable: true)]
-    private string $subjectSeminarTime;
+    #[Column(name: 'subject_seminar_time', type: Types::INTEGER, nullable: true)]
+    private ?int $subjectSeminarTime = null;
 
-    #[Column(name: 'subjectLaboratoryTime', type: Types::INTEGER, nullable: true)]
-    private string $subjectLaboratoryTime;
+    #[Column(name: 'subject_laboratory_time', type: Types::INTEGER, nullable: true)]
+    private ?int $subjectLaboratoryTime = null;
 
-    #[Column(name: 'subjectDescription', type: Types::STRING, nullable: true)]
-    private string $subjectDescription;
+    #[Column(name: 'subject_description', type: Types::STRING, nullable: true)]
+    private ?string $subjectDescription = null;
 
-    #[Column(name: 'subjectDepartment', type: Types::STRING)]
+    #[Column(name: 'subject_department', type: Types::STRING)]
     private string $subjectDepartment;
 
     public function getSubjectId(): int
@@ -54,22 +54,22 @@ class SubjectsEntity {
         $this->subjectName = $subjectName;
     }
 
-    public function getSubjectScore(): string
+    public function getSubjectScore(): int
     {
         return $this->subjectScore;
     }
 
-    public function setSubjectScore(string $subjectScore): void
+    public function setSubjectScore(int $subjectScore): void
     {
         $this->subjectScore = $subjectScore;
     }
 
-    public function getSubjectLecturesTime(): string
+    public function getSubjectLecturesTime(): ?int
     {
         return $this->subjectLecturesTime;
     }
 
-    public function setSubjectLecturesTime(string $subjectLecturesTime): void
+    public function setSubjectLecturesTime(?int $subjectLecturesTime): void
     {
         $this->subjectLecturesTime = $subjectLecturesTime;
     }
@@ -84,32 +84,32 @@ class SubjectsEntity {
         $this->subjectDepartment = $subjectDepartment;
     }
 
-    public function getSubjectDescription(): string
+    public function getSubjectDescription(): ?string
     {
         return $this->subjectDescription;
     }
 
-    public function setSubjectDescription(string $subjectDescription): void
+    public function setSubjectDescription(?string $subjectDescription): void
     {
         $this->subjectDescription = $subjectDescription;
     }
 
-    public function getSubjectLaboratoryTime(): string
-    {
-        return $this->subjectLaboratoryTime;
-    }
-
-    public function setSubjectLaboratoryTime(string $subjectLaboratoryTime): void
+    public function setSubjectLaboratoryTime(?int $subjectLaboratoryTime): void
     {
         $this->subjectLaboratoryTime = $subjectLaboratoryTime;
     }
 
-    public function getSubjectSeminarTime(): string
+    public function getSubjectLaboratoryTime(): ?int
+    {
+        return $this->subjectLaboratoryTime;
+    }
+
+    public function getSubjectSeminarTime(): ?int
     {
         return $this->subjectSeminarTime;
     }
 
-    public function setSubjectSeminarTime(string $subjectSeminarTime): void
+    public function setSubjectSeminarTime(?int $subjectSeminarTime): void
     {
         $this->subjectSeminarTime = $subjectSeminarTime;
     }

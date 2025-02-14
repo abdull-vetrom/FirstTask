@@ -17,13 +17,13 @@ class SubjectsController {
 
     private function setDTOFromRequest(array $request, SubjectsDTO $subjectsDTO): void {
         try {
-            $subjectsDTO->subjectName = $request['subjectName'];
-            $subjectsDTO->subjectScore = $request['subjectScore'];
-            $subjectsDTO->subjectLecturesTime = $request['subjectLecturesTime'];
-            $subjectsDTO->subjectSeminarTime = $request['subjectSeminarTime'];
-            $subjectsDTO->subjectLaboratoryTime = $request['subjectLaboratoryTime'];
-            $subjectsDTO->subjectDescription = $request['subjectDescription'];
-            $subjectsDTO->subjectDepartment = $request['subjectDepartment'];
+            $subjectsDTO->subjectName = $request['subject_name'];
+            $subjectsDTO->subjectScore = $request['subject_score'];
+            $subjectsDTO->subjectLecturesTime = $request['subject_lectures_time'];
+            $subjectsDTO->subjectSeminarTime = $request['subject_seminar_time'];
+            $subjectsDTO->subjectLaboratoryTime = $request['subject_laboratory_time'];
+            $subjectsDTO->subjectDescription = $request['subject_description'];
+            $subjectsDTO->subjectDepartment = $request['subject_department'];
 
         } catch (Throwable) {
             printErrorMessage(400, 'Переданные параметры неверные');

@@ -102,6 +102,7 @@ class SubjectsService {
                 ?: throw new Exception();
 
             $this->setSubjectsAttributes($subject, $subjectsDTO);
+            $this->entityManager->flush();
 
         } catch (Throwable) {
             printErrorMessage(400, 'Данного студента не существует');
