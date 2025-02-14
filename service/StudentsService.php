@@ -110,6 +110,7 @@ class StudentsService {
                 ?: throw new Exception();
 
             $this->setStudentsAttributes($student, $studentsDTO);
+            $this->entityManager->flush();
 
         } catch (Throwable) {
             printErrorMessage(400, 'Данного студента не существует');

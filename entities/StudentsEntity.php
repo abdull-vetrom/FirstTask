@@ -14,41 +14,41 @@ use Doctrine\ORM\Mapping\Table;
 #[Table(name: 'students')]
 class StudentsEntity {
     #[Id]
-    #[Column(name: 'studentId', type: Types::INTEGER)]
+    #[Column(name: 'student_id', type: Types::INTEGER)]
     #[GeneratedValue]
     private int $studentId;
 
-    #[Column(name: 'studentName', type: Types::STRING)]
+    #[Column(name: 'student_name', type: Types::STRING)]
     private string $studentName;
 
-    #[Column(name: 'studentLastname', type: Types::STRING)]
+    #[Column(name: 'student_lastname', type: Types::STRING)]
     private string $studentLastname;
 
-    #[Column(name: 'studentSurname', type: Types::STRING, nullable: true)]
+    #[Column(name: 'student_surname', type: Types::STRING, nullable: true)]
     private string $studentSurname;
 
-    #[Column(name: 'studentGroup', type: Types::STRING, nullable: true)]
+    #[Column(name: 'student_group', type: Types::STRING, nullable: true)]
     private string $studentGroup;
 
-    #[Column(name: 'studentBirthday', type: Types::STRING)]
+    #[Column(name: 'student_birthday', type: Types::STRING)]
     private string $studentBirthday;
 
-    #[Column(name: 'studentGender', type: Types::STRING)]
+    #[Column(name: 'student_gender', type: Types::STRING)]
     private string $studentGender;
 
-    #[Column(name: 'studentEmail', type: Types::STRING, unique: true, nullable: true)]
+    #[Column(name: 'student_email', type: Types::STRING, unique: true, nullable: true)]
     private string $studentEmail;
 
-    #[Column(name: 'studentPhone', type: Types::STRING, unique: true)]
+    #[Column(name: 'student_phone', type: Types::STRING, unique: true)]
     private string $studentPhone;
 
-    #[Column(name: 'studentAddress', type: Types::STRING)]
+    #[Column(name: 'student_address', type: Types::STRING)]
     private string $studentAddress;
 
-    #[Column(name: 'studentFaculty', type: Types::STRING)]
+    #[Column(name: 'student_faculty', type: Types::STRING)]
     private string $studentFaculty;
 
-    #[Column(name: 'studentStudyStartDate', type: Types::STRING)]
+    #[Column(name: 'student_study_start_date', type: Types::STRING)]
     private string $studentStudyStartDate;
 
     public function getStudentId(): int

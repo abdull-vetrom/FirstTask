@@ -17,17 +17,17 @@ class StudentsController {
 
     private function setDTOFromRequest(array $request, StudentsDTO $studentsDTO): void {
         try {
-            $studentsDTO->studentName = $request['studentName'];
-            $studentsDTO->studentLastname = $request['studentLastname'];
-            $studentsDTO->studentSurname = $request['studentSurname'];
-            $studentsDTO->studentGroup = $request['studentGroup'];
-            $studentsDTO->studentBirthday = $request['studentBirthday'];
-            $studentsDTO->studentGender = $request['studentGender'];
-            $studentsDTO->studentEmail = $request['studentEmail'];
-            $studentsDTO->studentPhone = $request['studentPhone'];
-            $studentsDTO->studentAddress = $request['studentAddress'];
-            $studentsDTO->studentFaculty = $request['studentFaculty'];
-            $studentsDTO->studentStudyStartDate = $request['studentStudyStartDate'];
+            $studentsDTO->studentName = $request['student_name'];
+            $studentsDTO->studentLastname = $request['student_lastname'];
+            $studentsDTO->studentSurname = $request['student_surname'];
+            $studentsDTO->studentGroup = $request['student_group'];
+            $studentsDTO->studentBirthday = $request['student_birthday'];
+            $studentsDTO->studentGender = $request['student_gender'];
+            $studentsDTO->studentEmail = $request['student_email'];
+            $studentsDTO->studentPhone = $request['student_phone'];
+            $studentsDTO->studentAddress = $request['student_address'];
+            $studentsDTO->studentFaculty = $request['student_faculty'];
+            $studentsDTO->studentStudyStartDate = $request['student_study_start_date'];
         } catch (Throwable) {
             printErrorMessage(400, 'Переданные параметры неверные');
         }
