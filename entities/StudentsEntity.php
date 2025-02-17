@@ -12,7 +12,8 @@ use Doctrine\ORM\Mapping\Table;
 
 #[Entity]
 #[Table(name: 'students')]
-class StudentsEntity {
+class StudentsEntity
+{
     #[Id]
     #[Column(name: 'student_id', type: Types::INTEGER)]
     #[GeneratedValue]
@@ -51,99 +52,15 @@ class StudentsEntity {
     #[Column(name: 'student_study_start_date', type: Types::STRING)]
     private string $studentStudyStartDate;
 
-    public function getStudentId(): int
-    {
-        return $this->studentId;
-    }
-
-    public function getStudentName(): string
-    {
-        return $this->studentName;
-    }
-
-    public function setStudentName(string $studentName): void
-    {
-        $this->studentName = $studentName;
-    }
-
-    public function getStudentLastname(): string
-    {
-        return $this->studentLastname;
-    }
-
-    public function setStudentLastname(string $studentLastname): void
-    {
-        $this->studentLastname = $studentLastname;
-    }
-
-    public function getStudentSurname(): string
-    {
-        return $this->studentSurname;
-    }
-
-    public function setStudentSurname(string $studentSurname): void
-    {
-        $this->studentSurname = $studentSurname;
-    }
-
-    public function getStudentGroup(): string
-    {
-        return $this->studentGroup;
-    }
-
-    public function setStudentGroup(string $studentGroup): void
-    {
-        $this->studentGroup = $studentGroup;
-    }
-
-    public function getStudentBirthday(): string
-    {
-        return $this->studentBirthday;
-    }
-
-    public function setStudentBirthday(string $studentBirthday): void
-    {
-        $this->studentBirthday = $studentBirthday;
-    }
-
-    public function getStudentGender(): string
-    {
-        return $this->studentGender;
-    }
-
-    public function setStudentGender(string $studentGender): void
-    {
-        $this->studentGender = $studentGender;
-    }
-
-    public function getStudentEmail(): string
-    {
-        return $this->studentEmail;
-    }
-
-    public function setStudentEmail(string $studentEmail): void
-    {
-        $this->studentEmail = $studentEmail;
-    }
-
-    public function getStudentPhone(): string
-    {
-        return $this->studentPhone;
-    }
-
-    public function setStudentPhone(string $studentPhone): void
-    {
-        $this->studentPhone = $studentPhone;
-    }
-
     public function getStudentAddress(): string
     {
         return $this->studentAddress;
     }
 
-    public function setStudentAddress(string $studentAddress): void
+    public function setStudentAddress(string $studentAddress): StudentsEntity
     {
         $this->studentAddress = $studentAddress;
+        return $this;
     }
 
     public function getStudentFaculty(): string
@@ -151,9 +68,10 @@ class StudentsEntity {
         return $this->studentFaculty;
     }
 
-    public function setStudentFaculty(string $studentFaculty): void
+    public function setStudentFaculty(string $studentFaculty): StudentsEntity
     {
         $this->studentFaculty = $studentFaculty;
+        return $this;
     }
 
     public function getStudentStudyStartDate(): string
@@ -161,9 +79,110 @@ class StudentsEntity {
         return $this->studentStudyStartDate;
     }
 
-    public function setStudentStudyStartDate(string $studentStudyStartDate): void
+    public function setStudentStudyStartDate(string $studentStudyStartDate): StudentsEntity
     {
         $this->studentStudyStartDate = $studentStudyStartDate;
+        return $this;
     }
+
+    public function getStudentPhone(): string
+    {
+        return $this->studentPhone;
+    }
+
+    public function setStudentPhone(string $studentPhone): StudentsEntity
+    {
+        $this->studentPhone = $studentPhone;
+        return $this;
+    }
+
+    public function getStudentEmail(): string
+    {
+        return $this->studentEmail;
+    }
+
+    public function setStudentEmail(string $studentEmail): StudentsEntity
+    {
+        $this->studentEmail = $studentEmail;
+        return $this;
+    }
+
+    public function getStudentGender(): string
+    {
+        return $this->studentGender;
+    }
+
+    public function setStudentGender(string $studentGender): StudentsEntity
+    {
+        $this->studentGender = $studentGender;
+        return $this;
+    }
+
+    public function getStudentBirthday(): string
+    {
+        return $this->studentBirthday;
+    }
+
+    public function setStudentBirthday(string $studentBirthday): StudentsEntity
+    {
+        $this->studentBirthday = $studentBirthday;
+        return $this;
+    }
+
+    public function getStudentGroup(): string
+    {
+        return $this->studentGroup;
+    }
+
+    public function setStudentGroup(string $studentGroup): StudentsEntity
+    {
+        $this->studentGroup = $studentGroup;
+        return $this;
+    }
+
+    public function getStudentSurname(): string
+    {
+        return $this->studentSurname;
+    }
+
+    public function setStudentSurname(string $studentSurname): StudentsEntity
+    {
+        $this->studentSurname = $studentSurname;
+        return $this;
+    }
+
+    public function getStudentLastname(): string
+    {
+        return $this->studentLastname;
+    }
+
+    public function setStudentLastname(string $studentLastname): StudentsEntity
+    {
+        $this->studentLastname = $studentLastname;
+        return $this;
+    }
+
+    public function getStudentName(): string
+    {
+        return $this->studentName;
+    }
+
+    public function setStudentName(string $studentName): StudentsEntity
+    {
+        $this->studentName = $studentName;
+        return $this;
+    }
+
+    public function getStudentId(): int
+    {
+        return $this->studentId;
+    }
+
+    public function setStudentId(int $studentId): StudentsEntity
+    {
+        $this->studentId = $studentId;
+        return $this;
+    }
+
 
 }

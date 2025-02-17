@@ -1,4 +1,5 @@
 <?php
+
 namespace app\service;
 
 use app\DTO\StudentsDTO;
@@ -7,14 +8,17 @@ use Doctrine\ORM\EntityManager;
 use Exception;
 use Throwable;
 
-class StudentsService {
+class StudentsService
+{
     private EntityManager $entityManager;
 
-    public function __construct(EntityManager $entityManager) {
+    public function __construct(EntityManager $entityManager)
+    {
         $this->entityManager = $entityManager;
     }
 
-    private function getStudentsAttributes(array $students) : array {
+    private function getStudentsAttributes(array $students): array
+    {
 
         $result = [];
 
@@ -42,21 +46,22 @@ class StudentsService {
 
     }
 
-    private function setStudentsAttributes(StudentsEntity $student, StudentsDTO $studentsDTO) : void {
+    private function setStudentsAttributes(StudentsEntity $student, StudentsDTO $studentsDTO): void
+    {
 
         try {
 
-            $student->setStudentName($studentsDTO->studentName);
-            $student->setStudentLastname($studentsDTO->studentLastname);
-            $student->setStudentSurname($studentsDTO->studentSurname);
-            $student->setStudentGroup($studentsDTO->studentGroup);
-            $student->setStudentBirthday($studentsDTO->studentBirthday);
-            $student->setStudentGender($studentsDTO->studentGender);
-            $student->setStudentEmail($studentsDTO->studentEmail);
-            $student->setStudentPhone($studentsDTO->studentPhone);
-            $student->setStudentAddress($studentsDTO->studentAddress);
-            $student->setStudentFaculty($studentsDTO->studentFaculty);
-            $student->setStudentStudyStartDate($studentsDTO->studentStudyStartDate);
+            $student->setStudentName($studentsDTO->studentName)
+                ->setStudentLastname($studentsDTO->studentLastname)
+                ->setStudentSurname($studentsDTO->studentSurname)
+                ->setStudentGroup($studentsDTO->studentGroup)
+                ->setStudentBirthday($studentsDTO->studentBirthday)
+                ->setStudentGender($studentsDTO->studentGender)
+                ->setStudentEmail($studentsDTO->studentEmail)
+                ->setStudentPhone($studentsDTO->studentPhone)
+                ->setStudentAddress($studentsDTO->studentAddress)
+                ->setStudentFaculty($studentsDTO->studentFaculty)
+                ->setStudentStudyStartDate($studentsDTO->studentStudyStartDate);
 
         } catch (Throwable) {
             printErrorMessage(400, 'Параметры заданы неверно');
@@ -64,7 +69,8 @@ class StudentsService {
 
     }
 
-    public function create(StudentsDTO $studentsDTO) : void {
+    public function create(StudentsDTO $studentsDTO): void
+    {
 
         try {
 
@@ -80,7 +86,9 @@ class StudentsService {
 
     }
 
-    public function getStudent(int $studentId): array {
+    public function getStudent(int $studentId): array
+    {
+
 
         try {
             $student = $this->entityManager->find(StudentsEntity::class, $studentId)
@@ -95,14 +103,16 @@ class StudentsService {
 
     }
 
-    public function getStudents(): array {
+    public function getStudents(): array
+    {
 
         $students = $this->entityManager->getRepository(StudentsEntity::class)->findAll();
         return $this->getStudentsAttributes($students);
 
     }
 
-    public function update(StudentsDTO $studentsDTO, int $id): void {
+    public function update(StudentsDTO $studentsDTO, int $id): void
+    {
 
         try {
 
@@ -118,7 +128,8 @@ class StudentsService {
 
     }
 
-    public function delete(int $id): void {
+    public function delete(int $id): void
+    {
 
         try {
 

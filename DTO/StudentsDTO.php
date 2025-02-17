@@ -1,7 +1,9 @@
 <?php
+
 namespace app\DTO;
 
-class StudentsDTO {
+class StudentsDTO
+{
     public int $studentId;
     public string $studentName;
     public string $studentLastname;

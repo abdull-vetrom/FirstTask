@@ -1,7 +1,9 @@
 <?php
+
 namespace app\DTO;
 
-class SubjectsDTO {
+class SubjectsDTO
+{
     public int $subjectId;
     public string $subjectName;
     public int $subjectScore;

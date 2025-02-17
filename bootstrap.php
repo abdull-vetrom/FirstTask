@@ -8,7 +8,6 @@ use Doctrine\ORM\Mapping\Driver\AttributeDriver;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 
 require_once 'vendor/autoload.php';
-require_once __DIR__ . '/dataForDB.php';
 
 function printErrorMessage(int $http_response_cod, string $errorMessage): void
 {
@@ -22,7 +21,7 @@ function checkParameterExistence(string $requestParameterName, array $request): 
     try {
 
         $requestParameterValue = $request[$requestParameterName]
-        ?: throw new Exception();
+            ?: throw new Exception();
 
     } catch (Throwable) {
         printErrorMessage(400, 'Необходимый параметр не задан');
@@ -47,13 +46,13 @@ function getEntityManager(): EntityManager
     $configuration->setQueryCache($queryCache);
 
     //annotations driver
-    $driver = new AttributeDriver( [__DIR__ . '/Entities']);
+    $driver = new AttributeDriver([__DIR__ . '/entities']);
     $configuration->setMetadataDriverImpl($driver);
 
     //proxy config
-    $configuration->setProxyDir(__DIR__. '/var/cache');
+    $configuration->setProxyDir(__DIR__ . '/var/cache');
     $configuration->setProxyNamespace('Cache\Proxies');
-    $configuration->setAutoGenerateProxyClasses(false);
+    $configuration->setAutoGenerateProxyClasses(true);
 
     $connection = DriverManager::getConnection([
         'driver' => 'pdo_mysql',

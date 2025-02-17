@@ -7,15 +7,18 @@ use app\service\SubjectsService;
 use Doctrine\ORM\EntityManager;
 use Throwable;
 
-class SubjectsController {
+class SubjectsController
+{
 
     public SubjectsService $subjectsService;
 
-    public function __construct(EntityManager $entityManager) {
+    public function __construct(EntityManager $entityManager)
+    {
         $this->subjectsService = new SubjectsService($entityManager);
     }
 
-    private function setDTOFromRequest(array $request, SubjectsDTO $subjectsDTO): void {
+    private function setDTOFromRequest(array $request, SubjectsDTO $subjectsDTO): void
+    {
         try {
             $subjectsDTO->subjectName = $request['subject_name'];
             $subjectsDTO->subjectScore = $request['subject_score'];
@@ -30,7 +33,8 @@ class SubjectsController {
         }
     }
 
-    public function create(array $request): void  {
+    public function create(array $request): void
+    {
 
         $subjectsDTO = new subjectsDTO();
         $this->setDTOFromRequest($request, $subjectsDTO);
@@ -38,7 +42,8 @@ class SubjectsController {
 
     }
 
-    public function get(array $request): array {
+    public function get(array $request): array
+    {
 
         $subjectId = $request['id'];
 
@@ -49,7 +54,8 @@ class SubjectsController {
 
     }
 
-    public function update(array $request): void {
+    public function update(array $request): void
+    {
 
         //get subjectId or error
         $variableArray = checkParameterExistence('id', $request);
@@ -61,7 +67,8 @@ class SubjectsController {
 
     }
 
-    public function delete(array $request): void {
+    public function delete(array $request): void
+    {
 
         //get subjectId or error
         $variableArray = checkParameterExistence('id', $request);

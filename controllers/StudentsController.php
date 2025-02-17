@@ -7,15 +7,18 @@ use app\service\StudentsService;
 use Doctrine\ORM\EntityManager;
 use Throwable;
 
-class StudentsController {
+class StudentsController
+{
 
     public StudentsService $studentsService;
 
-    public function __construct(EntityManager $entityManager) {
+    public function __construct(EntityManager $entityManager)
+    {
         $this->studentsService = new StudentsService($entityManager);
     }
 
-    private function setDTOFromRequest(array $request, StudentsDTO $studentsDTO): void {
+    private function setDTOFromRequest(array $request, StudentsDTO $studentsDTO): void
+    {
         try {
             $studentsDTO->studentName = $request['student_name'];
             $studentsDTO->studentLastname = $request['student_lastname'];
@@ -33,7 +36,8 @@ class StudentsController {
         }
     }
 
-    public function create(array $request): void  {
+    public function create(array $request): void
+    {
 
         $studentsDTO = new StudentsDTO();
         $this->setDTOFromRequest($request, $studentsDTO);
@@ -41,7 +45,8 @@ class StudentsController {
 
     }
 
-    public function get(array $request): array {
+    public function get(array $request): array
+    {
 
         $studentId = $request['id'];
 
@@ -52,7 +57,8 @@ class StudentsController {
 
     }
 
-    public function update(array $request): void {
+    public function update(array $request): void
+    {
 
         //get studentId or error
         $variableArray = checkParameterExistence('id', $request);
@@ -64,7 +70,8 @@ class StudentsController {
 
     }
 
-    public function delete(array $request): void {
+    public function delete(array $request): void
+    {
 
         //get studentId or error
         $variableArray = checkParameterExistence('id', $request);

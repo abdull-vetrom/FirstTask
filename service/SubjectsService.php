@@ -1,4 +1,5 @@
 <?php
+
 namespace app\service;
 
 use app\DTO\SubjectsDTO;
@@ -7,14 +8,17 @@ use Doctrine\ORM\EntityManager;
 use Exception;
 use Throwable;
 
-class SubjectsService {
+class SubjectsService
+{
     private EntityManager $entityManager;
 
-    public function __construct(EntityManager $entityManager) {
+    public function __construct(EntityManager $entityManager)
+    {
         $this->entityManager = $entityManager;
     }
 
-    private function getSubjectsAttributes(array $subjects) : array {
+    private function getSubjectsAttributes(array $subjects): array
+    {
 
         $result = [];
 
@@ -38,17 +42,18 @@ class SubjectsService {
 
     }
 
-    private function setSubjectsAttributes(subjectsEntity $subject, subjectsDTO $subjectsDTO) : void {
+    private function setSubjectsAttributes(subjectsEntity $subject, subjectsDTO $subjectsDTO): void
+    {
 
         try {
 
-            $subject->setsubjectName($subjectsDTO->subjectName);
-            $subject->setSubjectScore($subjectsDTO->subjectScore);
-            $subject->setSubjectLecturesTime($subjectsDTO->subjectLecturesTime);
-            $subject->setSubjectSeminarTime($subjectsDTO->subjectSeminarTime);
-            $subject->setSubjectLaboratoryTime($subjectsDTO->subjectLaboratoryTime);
-            $subject->setSubjectDescription($subjectsDTO->subjectDescription);
-            $subject->setSubjectDepartment($subjectsDTO->subjectDepartment);
+            $subject->setsubjectName($subjectsDTO->subjectName)
+                ->setSubjectScore($subjectsDTO->subjectScore)
+                ->setSubjectLecturesTime($subjectsDTO->subjectLecturesTime)
+                ->setSubjectSeminarTime($subjectsDTO->subjectSeminarTime)
+                ->setSubjectLaboratoryTime($subjectsDTO->subjectLaboratoryTime)
+                ->setSubjectDescription($subjectsDTO->subjectDescription)
+                ->setSubjectDepartment($subjectsDTO->subjectDepartment);
 
         } catch (Throwable) {
             printErrorMessage(400, 'Параметры заданы неверно');
@@ -56,7 +61,8 @@ class SubjectsService {
 
     }
 
-    public function create(subjectsDTO $subjectsDTO) : void {
+    public function create(subjectsDTO $subjectsDTO): void
+    {
 
         try {
 
@@ -72,7 +78,8 @@ class SubjectsService {
 
     }
 
-    public function getSubject(int $subjectId): array {
+    public function getSubject(int $subjectId): array
+    {
 
         try {
             $subject = $this->entityManager->find(subjectsEntity::class, $subjectId)
@@ -87,14 +94,16 @@ class SubjectsService {
 
     }
 
-    public function getSubjects(): array {
+    public function getSubjects(): array
+    {
 
         $subjects = $this->entityManager->getRepository(subjectsEntity::class)->findAll();
         return $this->getSubjectsAttributes($subjects);
 
     }
 
-    public function update(subjectsDTO $subjectsDTO, int $id): void {
+    public function update(subjectsDTO $subjectsDTO, int $id): void
+    {
 
         try {
 
@@ -110,7 +119,8 @@ class SubjectsService {
 
     }
 
-    public function delete(int $id): void {
+    public function delete(int $id): void
+    {
 
         try {
 
