@@ -2,7 +2,7 @@
 
 namespace app\controllers;
 
-use app\DTO\EducationDTO;
+use app\dto\EducationDto;
 use app\service\EducationService;
 use Doctrine\ORM\EntityManager;
 use Throwable;
@@ -17,28 +17,27 @@ class EducationController
         $this->educationService = new EducationService($entityManager);
     }
 
-    private function setDTOFromRequest(array $request, EducationDTO $educationDTO): void
-    {
-        try {
-            $educationDTO->studentId = $request['student_id'];
-            $educationDTO->subjectName = $request['subject_name'];
-        } catch (Throwable) {
-            printErrorMessage(400, 'Переданные параметры неверные');
-        }
-    }
 
+    /**
+     * Добавление нового предмета студенту
+     * @param array $request
+     * @return void
+     */
     public function create(array $request): void
     {
-
-        $educationDTO = new EducationDTO();
-        $this->setDTOFromRequest($request, $educationDTO);
-        $this->educationService->create($educationDTO);
-
+        $educationDto = new EducationDto();
+        $this->setDtoFromRequest($request, $educationDto);
+        $this->educationService->create($educationDto);
     }
 
+
+    /**
+     * Получение расписания студента или всех студентов
+     * @param array $request
+     * @return array
+     */
     public function get(array $request): array
     {
-
         $studentId = $request['id'];
 
         $studentId
@@ -46,7 +45,22 @@ class EducationController
             : $result = $this->educationService->getEducations();
 
         return $result;
-
     }
 
+
+    /**
+     * Запись значений из request в dto для расписания
+     * @param array $request
+     * @param EducationDto $educationDto
+     * @return void
+     */
+    private function setDtoFromRequest(array $request, EducationDto $educationDto): void
+    {
+        try {
+            $educationDto->studentId = $request['studentId'];
+            $educationDto->subjectId = $request['subjectId'];
+        } catch (Throwable) {
+            printErrorMessage(422, 'Переданные параметры неверные');
+        }
+    }
 }

@@ -1,16 +1,15 @@
 <?php
 
-namespace app\DTO;
+namespace app\dto;
 
-class SubjectsDTO
+class SubjectsDto
 {
     public int $subjectId;
     public string $subjectName;
     public int $subjectScore;
+    public string $subjectDepartment;
     public ?int $subjectLecturesTime;
     public ?int $subjectSeminarTime;
     public ?int $subjectLaboratoryTime;
     public ?string $subjectDescription;
-    public string $subjectDepartment;
-
 }

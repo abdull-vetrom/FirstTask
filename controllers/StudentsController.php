@@ -2,7 +2,7 @@
 
 namespace app\controllers;
 
-use app\DTO\StudentsDTO;
+use app\dto\StudentsDto;
 use app\service\StudentsService;
 use Doctrine\ORM\EntityManager;
 use Throwable;
@@ -17,68 +17,85 @@ class StudentsController
         $this->studentsService = new StudentsService($entityManager);
     }
 
-    private function setDTOFromRequest(array $request, StudentsDTO $studentsDTO): void
-    {
-        try {
-            $studentsDTO->studentName = $request['student_name'];
-            $studentsDTO->studentLastname = $request['student_lastname'];
-            $studentsDTO->studentSurname = $request['student_surname'];
-            $studentsDTO->studentGroup = $request['student_group'];
-            $studentsDTO->studentBirthday = $request['student_birthday'];
-            $studentsDTO->studentGender = $request['student_gender'];
-            $studentsDTO->studentEmail = $request['student_email'];
-            $studentsDTO->studentPhone = $request['student_phone'];
-            $studentsDTO->studentAddress = $request['student_address'];
-            $studentsDTO->studentFaculty = $request['student_faculty'];
-            $studentsDTO->studentStudyStartDate = $request['student_study_start_date'];
-        } catch (Throwable) {
-            printErrorMessage(400, 'Переданные параметры неверные');
-        }
-    }
-
+    /**
+     * Добавление нового студента
+     * @param array $request
+     * @return void
+     */
     public function create(array $request): void
     {
-
-        $studentsDTO = new StudentsDTO();
-        $this->setDTOFromRequest($request, $studentsDTO);
-        $this->studentsService->create($studentsDTO);
-
+        $studentsDto = new StudentsDto();
+        $this->setDtoFromRequest($request, $studentsDto);
+        $this->studentsService->create($studentsDto);
     }
 
+    /**
+     * Получение нового студента
+     * @param array $request
+     * @return array
+     */
     public function get(array $request): array
     {
-
         $studentId = $request['id'];
 
-        $studentId ? $result = $this->studentsService->getStudent($studentId)
-            : $result = $this->studentsService->getStudents();
+        if ($studentId) {
+            return $this->studentsService->getStudent($studentId);
+        }
 
-        return $result;
-
+        return $this->studentsService->getStudents();
     }
 
+    /**
+     * Обновление данных о студенте
+     * @param array $request
+     * @return void
+     */
     public function update(array $request): void
     {
-
-        //get studentId or error
         $variableArray = checkParameterExistence('id', $request);
         extract($variableArray);
 
-        $studentsDTO = new StudentsDTO();
-        $this->setDTOFromRequest($request, $studentsDTO);
-        $this->studentsService->update($studentsDTO, $id);
-
+        $studentsDto = new StudentsDto();
+        $this->setDtoFromRequest($request, $studentsDto);
+        $this->studentsService->update($studentsDto, $id);
     }
 
+
+    /**
+     * Удаление студента
+     * @param array $request
+     * @return void
+     */
     public function delete(array $request): void
     {
-
-        //get studentId or error
         $variableArray = checkParameterExistence('id', $request);
         extract($variableArray);
 
         $this->studentsService->delete($id);
-
     }
 
+    /**
+     * Запись значений из request в dto для студента
+     * @param array $request
+     * @param StudentsDto $studentsDto
+     * @return void
+     */
+    private function setDtoFromRequest(array $request, StudentsDto $studentsDto): void
+    {
+        try {
+            $studentsDto->studentName = $request['studentName'];
+            $studentsDto->studentLastname = $request['studentLastname'];
+            $studentsDto->studentSurname = $request['studentSurname'];
+            $studentsDto->studentGroup = $request['studentGroup'];
+            $studentsDto->studentBirthday = $request['studentBirthday'];
+            $studentsDto->studentGender = $request['studentGender'];
+            $studentsDto->studentEmail = $request['studentEmail'];
+            $studentsDto->studentPhone = $request['studentPhone'];
+            $studentsDto->studentAddress = $request['studentAddress'];
+            $studentsDto->studentFaculty = $request['studentFaculty'];
+            $studentsDto->studentStudyStartDate = $request['studentStudyStartDate'];
+        } catch (Throwable) {
+            printErrorMessage(422, 'Переданные параметры неверные');
+        }
+    }
 }

@@ -2,12 +2,13 @@
 
 namespace app\service;
 
-use app\DTO\EducationDTO;
+use app\dto\EducationDto;
 use app\entities\EducationEntity;
 use app\entities\StudentsEntity;
 use app\entities\SubjectsEntity;
 use Doctrine\ORM\EntityManager;
-use Exception;
+use Doctrine\ORM\Exception\ORMException;
+use Doctrine\ORM\OptimisticLockException;
 use Throwable;
 
 class EducationService
@@ -19,30 +20,24 @@ class EducationService
         $this->entityManager = $entityManager;
     }
 
-    public function create(EducationDTO $educationDTO): void
+    /**
+     * @param EducationDto $educationDto
+     * @return void
+     * @throws ORMException|OptimisticLockException
+     */
+    public function create(EducationDto $educationDto): void
     {
-        $subjectName = $educationDTO->subjectName;
-        $studentId = $educationDTO->studentId;
-
-        $queryBuilderForSubjectId = $this->entityManager->createQueryBuilder();
-        $queryForSubjectId = $queryBuilderForSubjectId
-            ->select('sub.subjectId')
-            ->from(SubjectsEntity::class, 'sub')
-            ->where('sub.subjectName = :subjectName')
-            ->setParameter('subjectName', $subjectName)
-            ->getQuery();
-
-        !empty(($queryForSubjectId->getResult())[0])
-            ? $subjectId = ($queryForSubjectId->getResult())[0]['subjectId']
-            : printErrorMessage(400, 'Данный предмет не найден');
+        $subjectId = $educationDto->subjectId;
+        $studentId = $educationDto->studentId;
 
         $subject = $this->entityManager->find(SubjectsEntity::class, $subjectId);
+        if (!$subject) {
+            printErrorMessage(422, 'Данного предмета не существует');
+        }
 
-        try {
-            $student = $this->entityManager->find(StudentsEntity::class, $studentId)
-                ?: throw new Exception();
-        } catch (Throwable) {
-            printErrorMessage(400, 'Данного студента не существует');
+        $student = $this->entityManager->find(StudentsEntity::class, $studentId);
+        if (!$student) {
+            printErrorMessage(422, 'Данного студента не существует');
         }
 
         try {
@@ -53,44 +48,31 @@ class EducationService
             $this->entityManager->persist($education);
             $this->entityManager->flush();
         } catch (Throwable) {
-            printErrorMessage(400, 'Студент уже имеет этот предмет в расписании');
+            printErrorMessage(422, 'Студент уже имеет этот предмет в расписании');
         }
-
     }
 
+    /**
+     * @param int $studentId
+     * @return array
+     */
     public function getEducation(int $studentId): array
     {
-        $queryBuilder = $this->entityManager->createQueryBuilder();
-        $query = $queryBuilder
-            ->select('stu.studentId, stu.studentName, stu.studentSurname, stu.studentLastname, stu.studentGroup, sub.subjectId, sub.subjectName')
-            ->from(EducationEntity::class, 'edu')
-            ->innerJoin('edu.student', 'stu')
-            ->innerJoin('edu.subject', 'sub')
-            ->where('stu.studentId = :studentId')
-            ->setParameter('studentId', $studentId)
-            ->getQuery();
+        $schedule = $this->entityManager->getRepository(EducationEntity::class)->getEducation($studentId);
 
-        !empty($query->getResult())
-            ? $result = $query->getResult()
-            : printErrorMessage(400, 'Данный студент не найден');
+        if (empty($schedule)) {
+            printErrorMessage(422, 'Расписание для данного студента не найдено');
+        }
 
-        return $result;
-
-
+        return $schedule;
     }
 
+
+    /**
+     * @return array
+     */
     public function getEducations(): array
     {
-        $queryBuilder = $this->entityManager->createQueryBuilder();
-        $query = $queryBuilder
-            ->select('stu.studentId, stu.studentName, stu.studentSurname, stu.studentLastname, stu.studentGroup, sub.subjectId, sub.subjectName')
-            ->from(EducationEntity::class, 'edu')
-            ->innerJoin('edu.student', 'stu')
-            ->innerJoin('edu.subject', 'sub')
-            ->getQuery();
-
-        return $query->getResult();
-
+        return $this->entityManager->getRepository(EducationEntity::class)->getEducations();
     }
-
 }

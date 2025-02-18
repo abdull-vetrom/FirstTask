@@ -1,8 +1,8 @@
 <?php
 
-namespace app\DTO;
+namespace app\dto;
 
-class StudentsDTO
+class StudentsDto
 {
     public int $studentId;
     public string $studentName;
@@ -16,5 +16,4 @@ class StudentsDTO
     public string $studentAddress;
     public string $studentFaculty;
     public string $studentStudyStartDate;
-
 }

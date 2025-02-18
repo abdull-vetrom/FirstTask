@@ -40,93 +40,138 @@ class SubjectsEntity
     #[Column(name: 'subject_department', type: Types::STRING)]
     private string $subjectDepartment;
 
+    /**
+     * @return int
+     */
     public function getSubjectId(): int
     {
         return $this->subjectId;
     }
 
-    public function setSubjectId(int $subjectId): SubjectsEntity
-    {
-        $this->subjectId = $subjectId;
-        return $this;
-    }
-
+    /**
+     * @return string
+     */
     public function getSubjectName(): string
     {
         return $this->subjectName;
     }
 
+    /**
+     * @param string $subjectName
+     * @return $this
+     */
     public function setSubjectName(string $subjectName): SubjectsEntity
     {
         $this->subjectName = $subjectName;
         return $this;
     }
 
+    /**
+     * @return int
+     */
     public function getSubjectScore(): int
     {
         return $this->subjectScore;
     }
 
+    /**
+     * @param int $subjectScore
+     * @return $this
+     */
     public function setSubjectScore(int $subjectScore): SubjectsEntity
     {
         $this->subjectScore = $subjectScore;
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getSubjectLecturesTime(): ?int
     {
         return $this->subjectLecturesTime;
     }
 
+    /**
+     * @param int|null $subjectLecturesTime
+     * @return $this
+     */
     public function setSubjectLecturesTime(?int $subjectLecturesTime): SubjectsEntity
     {
         $this->subjectLecturesTime = $subjectLecturesTime;
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getSubjectSeminarTime(): ?int
     {
         return $this->subjectSeminarTime;
     }
 
+    /**
+     * @param int|null $subjectSeminarTime
+     * @return $this
+     */
     public function setSubjectSeminarTime(?int $subjectSeminarTime): SubjectsEntity
     {
         $this->subjectSeminarTime = $subjectSeminarTime;
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getSubjectLaboratoryTime(): ?int
     {
         return $this->subjectLaboratoryTime;
     }
 
+    /**
+     * @param int|null $subjectLaboratoryTime
+     * @return $this
+     */
     public function setSubjectLaboratoryTime(?int $subjectLaboratoryTime): SubjectsEntity
     {
         $this->subjectLaboratoryTime = $subjectLaboratoryTime;
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getSubjectDescription(): ?string
     {
         return $this->subjectDescription;
     }
 
+
+    /**
+     * @param string|null $subjectDescription
+     * @return $this
+     */
     public function setSubjectDescription(?string $subjectDescription): SubjectsEntity
     {
         $this->subjectDescription = $subjectDescription;
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getSubjectDepartment(): string
     {
         return $this->subjectDepartment;
     }
 
+    /**
+     * @param string $subjectDepartment
+     * @return $this
+     */
     public function setSubjectDepartment(string $subjectDepartment): SubjectsEntity
     {
         $this->subjectDepartment = $subjectDepartment;
         return $this;
     }
-
-
 }
