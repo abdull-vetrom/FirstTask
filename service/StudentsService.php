@@ -5,8 +5,11 @@ namespace app\service;
 use app\dto\StudentsDto;
 use app\entities\StudentsEntity;
 use Doctrine\ORM\EntityManager;
+use Dompdf\Dompdf;
 use Exception;
 use Throwable;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
 class StudentsService
 {
@@ -101,6 +104,20 @@ class StudentsService
         } catch (Throwable) {
             printErrorMessage(422, 'Данного студента не существует');
         }
+    }
+
+    public function getPdfForAllStudents(): void
+    {
+        $directoryForTemplates = new FilesystemLoader('templates');
+        $twig = new Environment($directoryForTemplates);
+        $students = $this->getStudents();
+
+        $template = $twig->render('StudentsTable.html.twig', ['students' => $students]);
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($template);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+        $dompdf->stream();
     }
 
     /**

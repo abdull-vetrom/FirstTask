@@ -75,6 +75,15 @@ class StudentsController
     }
 
     /**
+     * Получение pdf-файла с таблицей всех студентов
+     * @return void
+     */
+    public function getPdfForAllStudents()
+    {
+        $this->studentsService->getPdfForAllStudents();
+    }
+
+    /**
      * Запись значений из request в dto для студента
      * @param array $request
      * @param StudentsDto $studentsDto
