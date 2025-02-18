@@ -11,9 +11,9 @@ class SubjectsController
 {
     public SubjectsService $subjectsService;
 
-    public function __construct(EntityManager $entityManager)
+    public function __construct(SubjectsService $subjectsService)
     {
-        $this->subjectsService = new SubjectsService($entityManager);
+        $this->subjectsService = $subjectsService;
     }
 
     /**

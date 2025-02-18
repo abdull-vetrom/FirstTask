@@ -9,12 +9,15 @@ $act = $_GET['act'] ?? null;
 $method = $_GET['method'] ?? null;
 
 $controllerName = 'app\\controllers\\' . ucfirst($act) . 'Controller';
+$serviceName = 'app\\services\\' . ucfirst($act) . 'Service';
 
 if (!class_exists($controllerName) || !method_exists($controllerName, $method)) {
     printErrorMessage(404, 'Переданные параметры неверные');
 }
 
-$controller = new $controllerName($entityManager);
+$service = new $serviceName($entityManager);
+$controller = new $controllerName($service);
+
 
 $data = json_decode(file_get_contents('php://input'), true) ?? [];
 $fullData = $data + $_REQUEST;

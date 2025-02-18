@@ -12,9 +12,9 @@ class StudentsController
 
     public StudentsService $studentsService;
 
-    public function __construct(EntityManager $entityManager)
+    public function __construct(StudentsService $studentsService)
     {
-        $this->studentsService = new StudentsService($entityManager);
+        $this->studentsService = $studentsService;
     }
 
     /**
