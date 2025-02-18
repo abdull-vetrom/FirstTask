@@ -40,11 +40,11 @@ class EducationController
     {
         $studentId = $request['id'];
 
-        $studentId
-            ? $result = $this->educationService->getEducation($studentId)
-            : $result = $this->educationService->getEducations();
+        if ($studentId) {
+            return $this->educationService->getEducation($studentId);
+        }
 
-        return $result;
+        return $this->educationService->getEducations();
     }
 
 
